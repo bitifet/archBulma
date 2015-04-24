@@ -1,0 +1,170 @@
+
+
+show tables;
++------------------------------------+
+| Tables_in_bulma                    |
++------------------------------------+
+| OJO_esta_base_de_datos_es_de_BULMA |
+| bul_link                           |
+| bul_stats                          |
+| bul_tbl_autores                    |
+| bul_tbl_comentarios                |
+| bul_tbl_cuerpo_noticias            |
+| bul_tbl_noticias                   |
+| bul_tbl_noticias_stats             |
+| bul_tbl_ranking                    |
+| bul_tbl_relacionadas               |
+| bul_tbl_sindicacion                |
+| bul_tbl_tipos_noticia              |
+| bul_tbl_unvoto                     |
++------------------------------------+
+
+describe bul_link;
++----------+------------------+------+-----+---------------------+-----------------------------+
+| Field    | Type             | Null | Key | Default             | Extra                       |
++----------+------------------+------+-----+---------------------+-----------------------------+
+| id       | int(10) unsigned | NO   | PRI | NULL                | auto_increment              |
+| link     | varchar(255)     | NO   |     |                     |                             |
+| ip       | varchar(24)      | YES  |     | NULL                |                             |
+| acceso   | timestamp        | NO   |     | CURRENT_TIMESTAMP   | on update CURRENT_TIMESTAMP |
+| alta     | timestamp        | NO   |     | 0000-00-00 00:00:00 |                             |
+| contador | int(11)          | YES  |     | 0                   |                             |
++----------+------------------+------+-----+---------------------+-----------------------------+
+
+describe bul_stats;
++---------------+-----------+------+-----+-------------------+-----------------------------+
+| Field         | Type      | Null | Key | Default           | Extra                       |
++---------------+-----------+------+-----+-------------------+-----------------------------+
+| last_modified | timestamp | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| dia_ranking   | int(11)   | YES  |     | NULL              |                             |
+| version_bd    | tinytext  | YES  |     | NULL              |                             |
++---------------+-----------+------+-----+-------------------+-----------------------------+
+
+describe bul_tbl_autores
++--------------------------+----------------------+------+-----+-------------------+
+| Field                    | Type                 | Null | Key | Default           |
++--------------------------+----------------------+------+-----+-------------------+
+| id_autor                 | smallint(5) unsigned | NO   | PRI | NULL              |
+| contador_lecturas        | int(10) unsigned     | YES  |     | 0                 |
+| ultimo_acceso            | timestamp            | NO   |     | CURRENT_TIMESTAMP |
+| fecha_alta_autor         | date                 | YES  |     | NULL              |
+| fecha_baja_autor         | date                 | YES  |     | NULL              |
+| fecha_modificacion_autor | date                 | YES  |     | NULL              |
+| email_autor              | varchar(40)          | NO   | UNI |                   |
+| nombre_autor             | tinytext             | YES  |     | NULL              |
+| apodo_autor              | tinytext             | YES  |     | NULL              |
+| password_autor           | tinytext             | YES  |     | NULL              |
+| config_autor             | tinytext             | YES  |     | NULL              |
+| web_autor                | tinytext             | YES  |     | NULL              |
+| nivel_autor              | tinyint(3) unsigned  | NO   |     | 9                 |
++--------------------------+----------------------+------+-----+-------------------+
+
+describe bul_tbl_comentarios
++----------------------+-----------------------+------+-----+---------+----------------+
+| Field                | Type                  | Null | Key | Default | Extra          |
++----------------------+-----------------------+------+-----+---------+----------------+
+| id_comentario        | int(10) unsigned      | NO   | PRI | NULL    | auto_increment |
+| id_noticia           | mediumint(8) unsigned | NO   | MUL | 0       |                |
+| fechahora_comentario | datetime              | YES  |     | NULL    |                |
+| tipo_comentario      | tinyint(4)            | NO   |     | 0       |                |
+| id_contesta          | int(10) unsigned      | NO   |     | 0       |                |
+| tiene_contestaciones | tinyint(3) unsigned   | NO   |     | 0       |                |
+| oculto               | tinyint(3) unsigned   | YES  |     | 0       |                |
+| titulo_comentario    | tinytext              | YES  |     | NULL    |                |
+| nombre_comentador    | tinytext              | YES  |     | NULL    |                |
+| email_comentador     | tinytext              | YES  |     | NULL    |                |
+| web_comentador       | tinytext              | YES  |     | NULL    |                |
+| key_comentario       | tinytext              | YES  | MUL | NULL    |                |
+| cuerpo_comentario    | text                  | YES  |     | NULL    |                |
++----------------------+-----------------------+------+-----+---------+----------------+
+
+describe bul_tbl_cuerpo_noticias
++----------------+-----------------------+------+-----+---------+-------+
+| Field          | Type                  | Null | Key | Default | Extra |
++----------------+-----------------------+------+-----+---------+-------+
+| id_noticia     | mediumint(8) unsigned | NO   | PRI | 0       |       |
+| numero_pagina  | tinyint(3) unsigned   | NO   | PRI | 1       |       |
+| cuerpo_noticia | mediumtext            | NO   |     | NULL    |       |
++----------------+-----------------------+------+-----+---------+-------+
+
+describe bul_tbl_noticias
++----------------------------+-----------------------+------+-----+---------------------+
+| Field                      | Type                  | Null | Key | Default             |
++----------------------------+-----------------------+------+-----+---------------------+
+| id_noticia                 | mediumint(8) unsigned | NO   | PRI | NULL                |
+| auto_mtime                 | timestamp             | NO   |     | CURRENT_TIMESTAMP   |
+| fecha_alta_noticia         | datetime              | YES  |     | NULL                |
+| fecha_caducidad_noticia    | datetime              | YES  |     | NULL                |
+| fecha_modificacion_noticia | timestamp             | NO   | MUL | 0000-00-00 00:00:00 |
+| formato_noticia            | tinyint(3) unsigned   | YES  |     | NULL                |
+| id_tipo_noticia            | tinyint(3) unsigned   | NO   | MUL | 0                   |
+| id_autor                   | smallint(5) unsigned  | YES  | MUL | NULL                |
+| contador_comentarios       | smallint(5) unsigned  | NO   |     | 0                   |
+| titulo_noticia             | varchar(150)          | YES  |     | NULL                |
+| keywords_noticia           | varchar(255)          | YES  |     | NULL                |
+| resumen_noticia            | text                  | YES  |     | NULL                |
+| votos_noticia              | mediumint(8) unsigned | YES  |     | 1                   |
+| nota_noticia               | decimal(4,2)          | YES  |     | 2.00                |
+| es_publicable              | tinyint(3) unsigned   | NO   |     | 0                   |
++----------------------------+-----------------------+------+-----+---------------------+
+
+describe bul_tbl_noticias_stats
++-------------------+------------------+------+-----+-------------------+-----------------------------+
+| Field             | Type             | Null | Key | Default           | Extra                       |
++-------------------+------------------+------+-----+-------------------+-----------------------------+
+| id_noticia        | int(10) unsigned | NO   | PRI | 0                 |                             |
+| modificado        | timestamp        | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
+| contador_lecturas | int(10) unsigned | NO   |     | 0                 |                             |
++-------------------+------------------+------+-----+-------------------+-----------------------------+
+
+describe bul_tbl_ranking
++------------+---------+------+-----+---------+-------+
+| Field      | Type    | Null | Key | Default | Extra |
++------------+---------+------+-----+---------+-------+
+| id_noticia | int(11) | NO   | PRI | 0       |       |
+| dia        | int(11) | NO   | PRI | 0       |       |
+| contador   | int(11) | NO   |     | 0       |       |
++------------+---------+------+-----+---------+-------+
+
+describe bul_tbl_relacionadas
++----------------+-----------------------+------+-----+---------+-------+
+| Field          | Type                  | Null | Key | Default | Extra |
++----------------+-----------------------+------+-----+---------+-------+
+| id_noticia     | mediumint(8) unsigned | NO   | PRI | 0       |       |
+| id_relacionada | mediumint(8) unsigned | NO   | PRI | 0       |       |
+| tipo_relacion  | tinyint(4)            | NO   |     | 0       |       |
++----------------+-----------------------+------+-----+---------+-------+
+
+describe bul_tbl_sindicacion
++----------+-----------------------+------+-----+---------+----------------+
+| Field    | Type                  | Null | Key | Default | Extra          |
++----------+-----------------------+------+-----+---------+----------------+
+| id       | mediumint(8) unsigned | NO   | PRI | NULL    | auto_increment |
+| id_autor | smallint(5) unsigned  | NO   | MUL | 0       |                |
+| url      | tinytext              | NO   |     | NULL    |                |
++----------+-----------------------+------+-----+---------+----------------+
+
+describe bul_tbl_tipos_noticia
++--------------------------+---------------------+------+-----+---------+----------------+
+| Field                    | Type                | Null | Key | Default | Extra          |
++--------------------------+---------------------+------+-----+---------+----------------+
+| id_tipo_noticia          | tinyint(3) unsigned | NO   | PRI | NULL    | auto_increment |
+| id_tipo_noticia_padre    | int(11)             | YES  |     | NULL    |                |
+| nombre_tipo_noticia      | tinytext            | YES  |     | NULL    |                |
+| descripcion_tipo_noticia | tinytext            | YES  |     | NULL    |                |
++--------------------------+---------------------+------+-----+---------+----------------+
+
+
+
+--------------------------------------------------------------------
+
+
+describe bul_tbl_unvoto
++-----------+-----------+------+-----+-------------------+-----------------------------+
+| Field     | Type      | Null | Key | Default           | Extra                       |
++-----------+-----------+------+-----+-------------------+-----------------------------+
+| id_unvoto | char(64)  | NO   | PRI |                   |                             |
+| hora      | timestamp | NO   |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++-----------+-----------+------+-----+-------------------+-----------------------------+
+
+
