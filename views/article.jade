@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  h2
+    a(href="noticia/"+data.id) !{data.title}
+  div=data.abstract
+      
