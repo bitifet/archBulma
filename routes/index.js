@@ -4,42 +4,8 @@ var router = express.Router();
 
 var Bulma = require("../db/bulma.js");
 
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    Bulma.listArticles(
-        {},
-        function renderArticleList(data) {
-            res.render(
-                'index',
-                {
-                    title: 'Bulma',
-                    data: data,
-                }
-            );
-        },
-        next
-    );
-
-
-});
-
-
-router.get('/noticia/:id', function (req, res, next) {
-    Bulma.renderArticle(
-        req.params,
-        function renderArticle(data) {
-            res.render(
-                'article',
-                {
-                    title: "Fixme!",
-                    data: data,
-                }
-            );
-        },
-        next
-    );
-});
-
+for (var b in Bulma) {
+    router.get(Bulma[b][0], Bulma[b][1]);
+};
 
 module.exports = router;
