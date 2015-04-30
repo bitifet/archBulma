@@ -12,6 +12,7 @@ block content
                         hr.small
                         span.subheading Welcome to #{title}
 
+    script(type="text/javascript" language="javascript" src="javascripts/index.js")
     // Main Content
     div.container
         div.row
@@ -24,7 +25,7 @@ block content
                                 span=art.abstract.text
                                 if art.abstract.more
                                     span="&nbsp;"
-                                    a(href=siteMap.abstract.url+art.id)=art.abstract.more
+                                    a.showMore(href=siteMap.abstract.url+art.id)=art.abstract.more
                         p.post-meta
                             span Posted by&nbsp;
                             a(href=siteMap.author.url+art.author.id)=art.author.name
