@@ -1,11 +1,35 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    // Page Header
+    // Set your background image for this header on the line below.
+    header.intro-header(style="background-image: url('img/home-bg.jpg')")
+        div.container
+            div.row
+                div.col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+                    div.site-heading
+                        h1= title
+                        hr.small
+                        span.subheading Welcome to #{title}
 
-  ul
-    each art in data
-      li
-        a(href="noticia/"+art.id) !{art.title}
-      
+    // Main Content
+    div.container
+        div.row
+            div.col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1
+                each art in data
+                    div.post-preview(data-id=art.id)
+                        a(href="noticia/"+art.id)
+                            h2.post-title !{art.title}
+                            h3.post-subtitle
+                                span=art.abstract.text
+                                if art.abstract.more
+                                    span="&nbsp;"
+                                    a(href=siteMap.abstract.url+art.id)=art.abstract.more
+                        p.post-meta
+                            span Posted by&nbsp;
+                            a(href=siteMap.author.url+art.author.id)=art.author.name
+                            span &nbsp;on&nbsp;
+                            span=art.mtime
+
+
+
