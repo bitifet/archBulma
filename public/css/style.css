@@ -1,0 +1,12 @@
+/*
+img[align=left] {
+    display:none !important;
+}
+*/
+img {
+    margin-left: 1em !important;
+    margin-right: 1em !important;
+}
+div.post-preview {
+    padding-bottom: 2em !important;
+}

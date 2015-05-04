@@ -7,22 +7,21 @@ $("body").on("click", "div.post-preview a.showMore", function(e){
     };
     me.data("handled", true);
     var url = me.attr("href");
-    var heading = me.closest(".post-subtitle");
-    var container = $("<div></div>")
-        .css({width: "100%"})
+    var insertPoint = $(".post-meta", me.closest(".post-preview"));
+    var placeHolder = $("<div></div>")
         .text("Loading...")
-        .insertAfter(heading)
+        .insertBefore(insertPoint)
     ;
 
 
     $.ajax({
         url: url,
         success: function loadAbstract(data){
-            container.html(data);
+            placeHolder.html(data);
             me.text("(-)");
             var open = true;
             me.on("click", function abstractToggle(){
-                container.fadeToggle();
+                placeHolder.fadeToggle();
                 open = ! open;
                 me.text(open
                     ? "(-)"
