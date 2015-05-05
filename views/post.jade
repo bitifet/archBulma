@@ -9,12 +9,16 @@ block content
             .post-heading
               h1= title
               |                         
-              h2.subheading Welcome to #{title}
+              h2.subheading=art.title
               |                         
               span.meta
                 | Posted by 
-                a(href='#') Start Bootstrap
+                a(href=Url.path("author"))= art.author.name
                 |  on August 24, 2014
+
+
+
+
     // Post Content
     article
       .container
